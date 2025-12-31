@@ -10,6 +10,16 @@ import About from './components/About';
 import Contact from './components/Contact';
 import { ARTIST_PORTRAIT, SOCIAL_LINKS, getWhatsAppLink } from './constants';
 
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
+
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = React.useState(false);
   const { hash } = useLocation();
@@ -85,6 +95,15 @@ const WhatsAppButton: React.FC = () => {
 };
 
 const Footer: React.FC = () => {
+  const location = useLocation();
+
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
+    if (location.pathname === path) {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   return (
     <footer className="bg-[#EBCFB2]/10 py-16 px-6 md:px-12 border-t border-[#EBCFB2]/30 mt-20">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -98,10 +117,10 @@ const Footer: React.FC = () => {
         <div>
           <h4 className="uppercase tracking-widest text-xs font-bold mb-4">Navegación</h4>
           <ul className="space-y-2 text-sm opacity-80">
-            <li><Link to="/" className="hover:text-[#B08968]">Inicio</Link></li>
-            <li><Link to="/works" className="hover:text-[#B08968]">Obras</Link></li>
-            <li><Link to="/top-sales" className="hover:text-[#B08968]">Top Ventas</Link></li>
-            <li><Link to="/contact" className="hover:text-[#B08968]">Contacto</Link></li>
+            <li><Link to="/" onClick={(e) => handleLinkClick(e, '/')} className="hover:text-[#B08968]">Inicio</Link></li>
+            <li><Link to="/works" onClick={(e) => handleLinkClick(e, '/works')} className="hover:text-[#B08968]">Obras</Link></li>
+            <li><Link to="/top-sales" onClick={(e) => handleLinkClick(e, '/top-sales')} className="hover:text-[#B08968]">Top Ventas</Link></li>
+            <li><Link to="/contact" onClick={(e) => handleLinkClick(e, '/contact')} className="hover:text-[#B08968]">Contacto</Link></li>
           </ul>
         </div>
         <div>
@@ -127,6 +146,7 @@ const Footer: React.FC = () => {
 const App: React.FC = () => {
   return (
     <Router>
+      <ScrollToTop />
       <div className="min-h-screen flex flex-col">
         <Navbar />
         <main className="flex-grow overflow-hidden">
