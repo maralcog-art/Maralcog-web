@@ -26,7 +26,7 @@ const Navbar: React.FC = () => {
     <nav className="sticky top-0 z-50 bg-[#FAF3E0]/90 backdrop-blur-md py-6 px-6 md:px-12 flex justify-between items-center border-b border-[#EBCFB2]/30">
       <Link to="/" className="flex items-center gap-4 hover:opacity-70 transition-opacity">
         <img
-          src={ARTIST_PORTRAIT}
+          src="/images/artist-portrait.jpg"
           alt="Maralcog"
           className="w-12 h-12 rounded-full object-cover border-2 border-[#B08968]"
         />
